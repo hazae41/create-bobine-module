@@ -28,6 +28,20 @@ If needed modify your server URL in .env
 SERVER=http://localhost:8080
 ```
 
+Start coding in ./src/bin.ts
+
+```tsx
+import { blobref, blobs, console } from "@hazae41/stdbob"
+
+export function main(): blobref {
+  const message = blobs.save(String.UTF8.encode("Hello, Bobine!"))
+
+  console.log(message)
+
+  return message
+}
+```
+
 Deploy your module and get its address
 
 ```bash
