@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "@hazae41/binary": "jsr:@hazae41/binary@^2.0.2"
+  }
+}
