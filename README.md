@@ -25,7 +25,7 @@ deno install
 Deploy your module and get its address
 
 ```bash
-deno task produce
+deno task deploy
 ```
 
 Execute your module

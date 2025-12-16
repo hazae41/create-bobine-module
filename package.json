@@ -2,7 +2,7 @@
   "type": "module",
   "scripts": {
     "prepack": "rm -rf ./out && asc ./src/bin.ts -o ./out/bin.wasm --runtime stub --enable reference-types",
-    "produce": "npm run prepack && deno run -A ./run/src/mods/create/mod.ts ./out/bin.wasm",
+    "deploy": "npm run prepack && deno run -A ./run/src/mods/deploy/mod.ts ./out/bin.wasm",
     "execute": "deno run -A ./run/src/mods/execute/mod.ts"
   },
   "devDependencies": {
