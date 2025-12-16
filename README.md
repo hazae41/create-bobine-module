@@ -22,6 +22,12 @@ Install
 deno install
 ```
 
+If needed modify your server URL in .env
+
+```env
+SERVER=http://localhost:8080
+```
+
 Deploy your module and get its address
 
 ```bash
