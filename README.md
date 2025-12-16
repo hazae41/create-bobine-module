@@ -31,7 +31,7 @@ deno task produce
 Execute your module
 
 ```bash
-deno task execute <address> <method> <params>
+deno task execute <address> <method> [params]
 ```
 
 For example
