@@ -1,31 +1,35 @@
-# stdbob
+# Create Bobine AssemblyScript Module
 
-Standard libraries for [Bobine WebAssembly VM](https://github.com/hazae41/bobine)
+Make an AssemblyScript module for [Bobine WebAssembly VM](https://github.com/hazae41/bobine)
 
-```bash
-npm install @hazae41/stdbob
-```
+## Setup
 
-[**📦 NPM**](https://www.npmjs.com/package/@hazae41/stdbob)
-
-## Usage
-
-### AssemblyScript
-
-Just import the library from your AssemblyScript file
-
-```tsx
-import { modules, blobref } from "@hazae41/stdbob"
-
-export function main(): blobref {
-  return modules.self()
-}
-```
-
-And compile with `reference-types` enabled and `stub` runtime 
+Install Deno
 
 ```bash
-asc ./mod.ts -o ./mod.wasm --runtime stub --enable reference-types
+npm install -g deno
 ```
 
-Then deploy the .wasm file to your Bobine VM
+Clone this repository
+
+```bash
+git clone https://github.com/hazae41/create-bobine-assemblyscript-module.git module && cd ./module && rm -rf ./.git && git init
+```
+
+Install
+
+```bash
+deno install
+```
+
+Deploy your module
+
+```bash
+deno task produce
+```
+
+Execute your module
+
+```bash
+deno task execute <hash> <method> <params>
+```
