@@ -22,7 +22,7 @@ Install
 deno install
 ```
 
-Deploy your module
+Deploy your module and get its address
 
 ```bash
 deno task produce
@@ -31,5 +31,11 @@ deno task produce
 Execute your module
 
 ```bash
-deno task execute <hash> <method> <params>
+deno task execute <address> <method> <params>
+```
+
+For example
+
+```bash
+deno task execute 3ca2c27fa5069305da28741b19643cef918a8c5349ce5de1422925e0772cc5db main
 ```
