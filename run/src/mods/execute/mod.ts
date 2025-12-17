@@ -1,3 +1,5 @@
+// deno-lint-ignore-file no-unused-vars
+
 /// <reference types="../../libs/bytes/lib.d.ts"/>
 
 import { Readable, Writable } from "@hazae41/binary";
@@ -7,12 +9,14 @@ import { Pack } from "../../libs/packs/mod.ts";
 
 process.loadEnvFile(".env")
 
-async function execute(module: string, method: string, params: Uint8Array<ArrayBuffer>) {
+type Proof = [Array<string>, Array<[string, Uint8Array, Uint8Array]>, Array<[string, Uint8Array, Uint8Array]>, Array<Pack.Value>, bigint]
+
+async function execute(module: string, method: string, params: Array<Pack.Value>): Promise<Array<Pack.Value>> {
   const body = new FormData()
 
   body.append("module", module)
   body.append("method", method)
-  body.append("params", new Blob([params]))
+  body.append("params", new Blob([Writable.writeToBytesOrThrow(new Pack(params))]))
   body.append("effort", new Blob([await generate(10n ** 5n)]))
 
   const response = await fetch(new URL("/api/execute", process.env.SERVER), { method: "POST", body });
@@ -20,12 +24,17 @@ async function execute(module: string, method: string, params: Uint8Array<ArrayB
   if (!response.ok)
     throw new Error("Failed", { cause: response })
 
-  return Readable.readFromBytesOrThrow(Pack, await response.bytes())
+  const [logs, reads, writes, returned, sparks] = Readable.readFromBytesOrThrow(Pack, await response.bytes()) as Proof
+
+  for (const log of logs)
+    console.log(log)
+
+  return returned
 }
 
 const [module, method, ...params] = process.argv.slice(2)
 
-function parse(texts: string[]): Pack {
+function parse(texts: string[]): Array<Pack.Value> {
   const values = new Array<Pack.Value>()
 
   for (const text of texts) {
@@ -57,42 +66,42 @@ function parse(texts: string[]): Pack {
     throw new Error("Unknown value type")
   }
 
-  return new Pack(values)
+  return values
 }
 
-function stringify(pack: Pack): string {
-  const texts = new Array<string>()
+function stringify(pack: Array<Pack.Value>): string {
+  const entries = new Array<unknown>()
 
-  for (const value of pack.values) {
+  for (const value of pack) {
     if (value == null) {
-      texts.push("null")
+      entries.push({ type: "null" })
       continue
     }
 
     if (value instanceof Uint8Array) {
-      texts.push(`blob:${value.toHex()}`)
+      entries.push({ type: "blob", value: value.toHex() })
       continue
     }
 
     if (typeof value === "bigint") {
-      texts.push(`bigint:${value.toString()}`)
+      entries.push({ type: "bigint", value: value.toString() })
       continue
     }
 
     if (typeof value === "number") {
-      texts.push(`number:${value.toString()}`)
+      entries.push({ type: "number", value: value.toString() })
       continue
     }
 
     if (typeof value === "string") {
-      texts.push(`text:"${value}"`)
+      entries.push({ type: "text", value })
       continue
     }
 
     throw new Error("Unknown value type")
   }
 
-  return texts.join(" ")
+  return JSON.stringify(entries)
 }
 
-console.log(stringify(await execute(module, method, Writable.writeToBytesOrThrow(parse(params)))))
+console.log(stringify(await execute(module, method, parse(params))))
