@@ -11,7 +11,7 @@ process.loadEnvFile(".env")
 
 type Proof = [Array<string>, Array<[string, Uint8Array, Uint8Array]>, Array<[string, Uint8Array, Uint8Array]>, Array<Pack.Value>, bigint]
 
-async function execute(module: string, method: string, params: Array<Pack.Value>): Promise<Array<Pack.Value>> {
+async function execute(module: string, method: string, params: Array<Pack.Value>) {
   const body = new FormData()
 
   body.append("module", module)
