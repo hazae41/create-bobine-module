@@ -1,9 +1,5 @@
-import { blobref, blobs, console } from "@hazae41/stdbob"
+import { textref } from "@hazae41/stdbob"
 
-export function main(): blobref {
-  const message = blobs.save(String.UTF8.encode("Hello, Bobine!"))
-
-  console.log(message)
-
+export function main(message: textref): textref {
   return message
 }

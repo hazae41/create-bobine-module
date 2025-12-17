@@ -29,21 +29,70 @@ function parse(texts: string[]): Pack {
   const values = new Array<Pack.Value>()
 
   for (const text of texts) {
-    if (text.startsWith("0x")) {
-      values.push(Uint8Array.fromHex(text.slice(2)))
+    if (text === "null") {
+      values.push(null)
       continue
     }
 
-    if (text.endsWith("n")) {
-      values.push(BigInt(text.slice(0, -1)))
+    if (text.startsWith("blob:")) {
+      values.push(Uint8Array.fromHex(text.slice("blob:".length)))
       continue
     }
 
-    values.push(Number(text))
-    continue
+    if (text.startsWith("bigint:")) {
+      values.push(BigInt(text.slice("bigint:".length)))
+      continue
+    }
+
+    if (text.startsWith("number:")) {
+      values.push(Number(text.slice("number:".length)))
+      continue
+    }
+
+    if (text.startsWith("text:")) {
+      values.push(text.slice("text:".length))
+      continue
+    }
+
+    throw new Error("Unknown value type")
   }
 
   return new Pack(values)
 }
 
-console.log(await execute(module, method, Writable.writeToBytesOrThrow(parse(params))))
+function stringify(pack: Pack): string {
+  const texts = new Array<string>()
+
+  for (const value of pack.values) {
+    if (value == null) {
+      texts.push("null")
+      continue
+    }
+
+    if (value instanceof Uint8Array) {
+      texts.push(`blob:${value.toHex()}`)
+      continue
+    }
+
+    if (typeof value === "bigint") {
+      texts.push(`bigint:${value.toString()}`)
+      continue
+    }
+
+    if (typeof value === "number") {
+      texts.push(`number:${value.toString()}`)
+      continue
+    }
+
+    if (typeof value === "string") {
+      texts.push(`text:"${value}"`)
+      continue
+    }
+
+    throw new Error("Unknown value type")
+  }
+
+  return texts.join(" ")
+}
+
+console.log(stringify(await execute(module, method, Writable.writeToBytesOrThrow(parse(params)))))
