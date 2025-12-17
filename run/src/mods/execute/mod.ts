@@ -78,6 +78,11 @@ function stringify(pack: Array<Pack.Value>): string {
       continue
     }
 
+    if (Array.isArray(value)) {
+      entries.push({ type: "array", value: stringify(value) })
+      continue
+    }
+
     if (value instanceof Uint8Array) {
       entries.push({ type: "blob", value: value.toHex() })
       continue
