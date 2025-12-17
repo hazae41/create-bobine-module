@@ -1,7 +1,7 @@
-import { bigintref, bigints, console, textref, texts } from "@hazae41/stdbob"
+import { console, textref, texts } from "@hazae41/stdbob"
 
-export function main(message: textref): bigintref {
-  console.log(texts.from("Hello world!"))
+export function main(name: textref): i64 {
+  console.log(texts.from("Hello, " + texts.into(name) + "!"))
 
-  return bigints.fromBase10(texts.from("42"))
+  return 42
 }
