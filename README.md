@@ -61,3 +61,5 @@ deno task execute 3ca2c27fa5069305da28741b19643cef918a8c5349ce5de1422925e0772cc5
 ```
 
 Hint: for easier development, you can keep the command in a new file, copy-paste it into your terminal when you want to execute it, and edit the file when you want to modify it, this can also be used to easily keep track of different modules or different addresses
+
+<img width="948" height="749" src="https://github.com/user-attachments/assets/cc89f189-b5bb-4d27-a540-bcf4b5139633" />
