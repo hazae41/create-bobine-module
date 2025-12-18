@@ -5,18 +5,18 @@
 import { Readable, Writable } from "@hazae41/binary";
 import process from "node:process";
 import { generate } from "../../libs/effort/mod.ts";
-import { Pack } from "../../libs/packs/mod.ts";
+import { Packable, Packed } from "../../libs/packed/mod.ts";
 
 process.loadEnvFile(".env")
 
-type Proof = [Array<string>, Array<[string, Uint8Array, Uint8Array]>, Array<[string, Uint8Array, Uint8Array]>, Array<Pack.Value>, bigint]
+type Proof = [Array<string>, Array<[string, Uint8Array, Uint8Array]>, Array<[string, Uint8Array, Uint8Array]>, Packable, bigint]
 
-async function execute(module: string, method: string, params: Array<Pack.Value>) {
+async function execute(module: string, method: string, params: Array<Packable>) {
   const body = new FormData()
 
   body.append("module", module)
   body.append("method", method)
-  body.append("params", new Blob([Writable.writeToBytesOrThrow(new Pack(params))]))
+  body.append("params", new Blob([Writable.writeToBytesOrThrow(new Packed(params))]))
   body.append("effort", new Blob([await generate(10n ** 5n)]))
 
   const response = await fetch(new URL("/api/execute", process.env.SERVER), { method: "POST", body });
@@ -24,7 +24,7 @@ async function execute(module: string, method: string, params: Array<Pack.Value>
   if (!response.ok)
     throw new Error("Failed", { cause: response })
 
-  const [logs, reads, writes, returned, sparks] = Readable.readFromBytesOrThrow(Pack, await response.bytes()) as Proof
+  const [logs, reads, writes, returned, sparks] = Readable.readFromBytesOrThrow(Packed, await response.bytes()) as Proof
 
   for (const log of logs)
     console.log(log)
@@ -34,8 +34,8 @@ async function execute(module: string, method: string, params: Array<Pack.Value>
 
 const [module, method, ...params] = process.argv.slice(2)
 
-function parse(texts: string[]): Array<Pack.Value> {
-  const values = new Array<Pack.Value>()
+function parse(texts: string[]): Array<Packable> {
+  const values = new Array<Packable>()
 
   for (const text of texts) {
     if (text === "null") {
@@ -69,44 +69,32 @@ function parse(texts: string[]): Array<Pack.Value> {
   return values
 }
 
-function stringify(pack: Array<Pack.Value>): string {
-  const entries = new Array<unknown>()
+function jsonify(value: Packable): unknown {
+  if (value == null)
+    return { type: "null" }
 
-  for (const value of pack) {
-    if (value == null) {
-      entries.push({ type: "null" })
-      continue
-    }
+  if (value instanceof Uint8Array)
+    return { type: "blob", value: value.toHex() }
 
-    if (Array.isArray(value)) {
-      entries.push({ type: "array", value: stringify(value) })
-      continue
-    }
+  if (typeof value === "bigint")
+    return { type: "bigint", value: value.toString() }
 
-    if (value instanceof Uint8Array) {
-      entries.push({ type: "blob", value: value.toHex() })
-      continue
-    }
+  if (typeof value === "number")
+    return { type: "number", value: value.toString() }
 
-    if (typeof value === "bigint") {
-      entries.push({ type: "bigint", value: value.toString() })
-      continue
-    }
+  if (typeof value === "string")
+    return { type: "text", value }
 
-    if (typeof value === "number") {
-      entries.push({ type: "number", value: value.toString() })
-      continue
-    }
+  if (Array.isArray(value)) {
+    const entries = new Array<unknown>()
 
-    if (typeof value === "string") {
-      entries.push({ type: "text", value })
-      continue
-    }
+    for (const subvalue of value)
+      entries.push(jsonify(subvalue))
 
-    throw new Error("Unknown value type")
+    return { type: "array", value: entries }
   }
 
-  return JSON.stringify(entries)
+  throw new Error("Unknown value type")
 }
 
-console.log(stringify(await execute(module, method, parse(params))))
+console.log(jsonify(await execute(module, method, parse(params))))
