@@ -51,11 +51,11 @@ deno task produce
 Execute your module
 
 ```bash
-deno task execute <address> <method> ...[params as ("null"|("blob":data)|("bigint":data)|("number":data)|("string":data))]
+deno task execute <address> <method> ...[params as ("null"|("blob":data)|("bigint":data)|("number":data)|("text":data))]
 ```
 
 For example
 
 ```bash
-deno task execute 3ca2c27fa5069305da28741b19643cef918a8c5349ce5de1422925e0772cc5db main bigint:123n blob:643cef918a8c string:"hello world"
+deno task execute 3ca2c27fa5069305da28741b19643cef918a8c5349ce5de1422925e0772cc5db main bigint:123n blob:643cef918a8c text:"hello world"
 ```
