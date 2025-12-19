@@ -8,7 +8,7 @@
     "execute": "deno run -A ./run/src/mods/execute/mod.ts"
   },
   "devDependencies": {
-    "@hazae41/stdbob": "^0.0.14",
+    "@hazae41/stdbob": "^0.0.15",
     "assemblyscript": "^0.28.9",
     "typescript": "^5.9.3"
   }
