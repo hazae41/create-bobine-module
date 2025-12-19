@@ -13,7 +13,7 @@ npm install -g deno
 Clone this repository
 
 ```bash
-git clone https://github.com/hazae41/create-bobine-assemblyscript-module.git module && cd ./module && rm -rf ./.git && git init
+git clone https://github.com/hazae41/create-bobine-module.git module && cd ./module && rm -rf ./.git && git init
 ```
 
 Install
