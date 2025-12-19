@@ -1,0 +1,41 @@
+{
+  "version": "5",
+  "specifiers": {
+    "npm:@hazae41/stdbob@^0.0.14": "0.0.14",
+    "npm:assemblyscript@~0.28.9": "0.28.9",
+    "npm:typescript@^5.9.3": "5.9.3"
+  },
+  "npm": {
+    "@hazae41/stdbob@0.0.14": {
+      "integrity": "sha512-NH2q6YcURTt+1Z2eZKaPuAOOIcuTrdAHPGEOgstPM9iNtSZ+50vEal9g8uYHCJdOuG8DNUGZ+kWe5wp6Z8g+xQ=="
+    },
+    "assemblyscript@0.28.9": {
+      "integrity": "sha512-UQqIYSUuJzqQP6fKTs1CtanyxmnDk7K+Kmj/J67agimxDqxjdMnTF/y9rEHUBL+K/VIEV4QYu57RMrL5LwbAvw==",
+      "dependencies": [
+        "binaryen",
+        "long"
+      ],
+      "bin": true
+    },
+    "binaryen@123.0.0-nightly.20250530": {
+      "integrity": "sha512-d1zPHBN5YlOd3Ff+OUxvVExuFeh8heSnqe+X3bjItFxGLvn4VGBKmrvv7pgy/cRhrIUGuPW138iaWfDhwjyDqg==",
+      "bin": true
+    },
+    "long@5.3.2": {
+      "integrity": "sha512-mNAgZ1GmyNhD7AuqnTG3/VQ26o760+ZYBPKjPvugO8+nLbYfX6TVpJPseBvopbdY+qpZ/lKUnmEc1LeZYS3QAA=="
+    },
+    "typescript@5.9.3": {
+      "integrity": "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==",
+      "bin": true
+    }
+  },
+  "workspace": {
+    "packageJson": {
+      "dependencies": [
+        "npm:@hazae41/stdbob@^0.0.14",
+        "npm:assemblyscript@~0.28.9",
+        "npm:typescript@^5.9.3"
+      ]
+    }
+  }
+}

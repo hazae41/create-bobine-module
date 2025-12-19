@@ -22,7 +22,7 @@ Reset the Git repository
 rm -rf ./.git && git init
 ```
 
-Install
+Install dependencies
 
 ```bash
 deno install
