@@ -1,4 +1,4 @@
-# Create Bobine AssemblyScript Module
+# Create Bobine Module
 
 Make an AssemblyScript module for [Bobine WebAssembly VM](https://github.com/hazae41/bobine)
 
@@ -28,7 +28,7 @@ If needed modify your server URL in .env
 SERVER=http://localhost:8080
 ```
 
-Start coding in ./src/bin.ts
+Start coding in ./src/mod.ts
 
 ```tsx
 import { blobref, blobs, console } from "@hazae41/stdbob"
