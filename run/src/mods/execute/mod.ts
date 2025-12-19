@@ -32,8 +32,6 @@ async function execute(module: string, method: string, params: Array<Packable>) 
   return returned
 }
 
-const [module, method, ...params] = process.argv.slice(2)
-
 function parse(texts: string[]): Array<Packable> {
   const values = new Array<Packable>()
 
@@ -96,5 +94,7 @@ function jsonify(value: Packable): unknown {
 
   throw new Error("Unknown value type")
 }
+
+const [module, method, ...params] = process.argv.slice(2)
 
 console.log(jsonify(await execute(module, method, parse(params))))
