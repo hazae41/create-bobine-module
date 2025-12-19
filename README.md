@@ -31,14 +31,16 @@ SERVER=http://localhost:8080
 Start coding in ./src/mod.ts
 
 ```tsx
-import { blobref, blobs, console } from "@hazae41/stdbob"
+import { console, storage, textref, texts } from "@hazae41/stdbob"
 
-export function main(): blobref {
-  const message = blobs.save(String.UTF8.encode("Hello, Bobine!"))
+export function sayMyName(name: textref): textref {
+  const previous = storage.get<textref>(texts.fromString("name"))
 
-  console.log(message)
+  console.log(texts.fromString("Hello, " + texts.toString(name) + "!"))
 
-  return message
+  storage.set(texts.fromString("name"), name)
+
+  return previous
 }
 ```
 
