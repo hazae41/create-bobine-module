@@ -10,10 +10,16 @@ Install Deno
 npm install -g deno
 ```
 
-Clone this repository
+Clone this Git repository
 
 ```bash
-git clone https://github.com/hazae41/create-bobine-module.git module && cd ./module && rm -rf ./.git && git init
+git clone https://github.com/hazae41/create-bobine-module.git module && cd ./module
+```
+
+Reset the Git repository
+
+```bash
+rm -rf ./.git && git init
 ```
 
 Install
