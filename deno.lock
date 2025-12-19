@@ -1,13 +1,13 @@
 {
   "version": "5",
   "specifiers": {
-    "npm:@hazae41/stdbob@^0.0.15": "0.0.15",
+    "npm:@hazae41/stdbob@^0.0.18": "0.0.18",
     "npm:assemblyscript@~0.28.9": "0.28.9",
     "npm:typescript@^5.9.3": "5.9.3"
   },
   "npm": {
-    "@hazae41/stdbob@0.0.15": {
-      "integrity": "sha512-arT6NS9MBaXqJHdkS9ltSBiumMxc7hdtHHC+DhgMzg+vpNR6BVY2YpLTOf25AQTp80kKh1kKMfCyN+dh0fGgxA=="
+    "@hazae41/stdbob@0.0.18": {
+      "integrity": "sha512-Yrj6kiBAmyXeJrq32PmtLLdHoBaFtr0r41BDOXXKpy8OPYVujjcQ2Rq852S+Vi9mZ/H1nu62YPe0iHF33k3jmQ=="
     },
     "assemblyscript@0.28.9": {
       "integrity": "sha512-UQqIYSUuJzqQP6fKTs1CtanyxmnDk7K+Kmj/J67agimxDqxjdMnTF/y9rEHUBL+K/VIEV4QYu57RMrL5LwbAvw==",
@@ -32,7 +32,7 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
-        "npm:@hazae41/stdbob@^0.0.15",
+        "npm:@hazae41/stdbob@^0.0.18",
         "npm:assemblyscript@~0.28.9",
         "npm:typescript@^5.9.3"
       ]

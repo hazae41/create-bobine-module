@@ -37,10 +37,10 @@ SERVER=http://localhost:8080
 Start coding in ./src/mod.ts
 
 ```tsx
-import { console, storage, textref, texts } from "@hazae41/stdbob"
+import { console, packref, storage, textref, texts } from "@hazae41/stdbob"
 
-export function sayMyName(name: textref): textref {
-  const previous = storage.get<textref>(texts.fromString("name"))
+export function sayMyName(name: textref): packref {
+  const previous = storage.get(texts.fromString("name"))
 
   console.log(texts.fromString("Hello, " + texts.toString(name) + "!"))
 
@@ -50,10 +50,10 @@ export function sayMyName(name: textref): textref {
 }
 ```
 
-Deploy your module and get its address
+Compile and deploy your module (it will display its address)
 
 ```bash
-deno task produce
+deno task prepack && deno task produce
 ```
 
 Execute your module
