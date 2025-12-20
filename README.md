@@ -50,7 +50,7 @@ export function sayMyName(name: textref): packref {
 }
 ```
 
-Compile and deploy your module (it will display its address)
+Compile and deploy your module (it will display the module address)
 
 ```bash
 deno task prepack && deno task produce
