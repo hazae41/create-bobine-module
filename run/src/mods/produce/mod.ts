@@ -6,6 +6,7 @@ import process from "node:process";
 import { generate } from "../../libs/effort/mod.ts";
 import { Packable, Packed } from "../../libs/packed/mod.ts";
 
+process.loadEnvFile(".env.local")
 process.loadEnvFile(".env")
 
 function parse(texts: string[]): Array<Packable> {

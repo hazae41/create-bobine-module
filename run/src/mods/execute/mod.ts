@@ -7,6 +7,7 @@ import process from "node:process";
 import { generate } from "../../libs/effort/mod.ts";
 import { Packable, Packed } from "../../libs/packed/mod.ts";
 
+process.loadEnvFile(".env.local")
 process.loadEnvFile(".env")
 
 type Proof = [Array<string>, Array<[string, Uint8Array, Uint8Array]>, Array<[string, Uint8Array, Uint8Array]>, Packable, bigint]

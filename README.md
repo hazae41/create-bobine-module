@@ -28,7 +28,7 @@ Install dependencies
 deno install
 ```
 
-If needed modify your server URL in .env
+If needed modify your server URL in a .env.local file
 
 ```env
 SERVER=http://localhost:8080
