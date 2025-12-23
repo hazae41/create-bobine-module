@@ -4,12 +4,6 @@ Make an AssemblyScript module for [Bobine WebAssembly VM](https://github.com/haz
 
 ## Setup
 
-Install Deno
-
-```bash
-npm install -g deno
-```
-
 Clone this Git repository
 
 ```bash
@@ -25,7 +19,7 @@ rm -rf ./.git && git init
 Install dependencies
 
 ```bash
-deno install
+npm install
 ```
 
 If needed modify your server URL in a .env.local file
@@ -53,19 +47,19 @@ export function sayMyName(name: textref): packref {
 Compile and deploy your module (it will display the module address)
 
 ```bash
-deno task prepack && deno task produce
+npm run prepack && npm run produce
 ```
 
 Execute your module
 
 ```bash
-deno task execute <address> <method> ...[params as ("null"|("blob":data)|("bigint":data)|("number":data)|("text":data))]
+npm run execute <address> <method> ...[params as ("null"|("blob":data)|("bigint":data)|("number":data)|("text":data))]
 ```
 
 For example
 
 ```bash
-deno task execute 3ca2c27fa5069305da28741b19643cef918a8c5349ce5de1422925e0772cc5db main bigint:123n blob:643cef918a8c text:"hello world"
+npm run execute 3ca2c27fa5069305da28741b19643cef918a8c5349ce5de1422925e0772cc5db main bigint:123n blob:643cef918a8c text:"hello world"
 ```
 
 Hint: for easier development, you can keep the command in a new file, copy-paste it into your terminal when you want to execute it, and edit the file when you want to modify it, this can also be used to easily keep track of different modules or different addresses
